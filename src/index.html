@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file: data:; img-src 'self' file: data:; media-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src http://127.0.0.1:11434">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Private Property Companion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="pet" class="pet-shell hidden">
+    <div class="pet-scan"></div>
+    <header class="pet-label"><span class="signal"></span><span>PROPERTY LINE // <b id="petMood">EASYGOING</b></span><button id="petMenu" aria-label="Open menu">···</button></header>
+    <section class="intro-card" id="nameCard">
+      <p class="eyebrow">FIRST CONTACT</p><h1>And you are?</h1><p>What should I call you around here?</p>
+      <form id="nameForm"><input id="nameInput" maxlength="32" placeholder="Your name" autocomplete="given-name" required><button class="button pink" type="submit">LET ME KNOW</button></form>
+    </section>
+    <section class="pet-character" id="petCharacter">
+      <div class="caption" id="petCaption">This is private property.</div>
+      <button id="petTalk" class="portrait-button" aria-label="Talk to the companion"><img id="petImage" alt="The Driver character"><span class="portrait-glitch"></span></button>
+      <div class="pet-nameplate"><span class="live-dot"></span><span id="petName">THE DRIVER</span><span class="tag">LOCAL</span></div>
+      <div class="pet-actions"><button id="talkButton">TALK TO HIM</button><button id="mainframeButton" title="Open Mainframe">⌘</button></div>
+    </section>
+    <audio id="startupAudio" src="../assets/private-property.mp3" preload="auto"></audio>
+  </main>
+
+  <main id="chat" class="chat-layout hidden">
+    <header class="chat-header"><div class="brand-mark">PP<span>•</span></div><div><p class="eyebrow">LOCAL COMPANION / <span class="green">ONLINE IF OLLAMA IS READY</span></p><h1>Conversation</h1></div><button class="icon-button" id="chatMainframe" title="Mainframe">⚙</button></header>
+    <section class="conversation" id="messages" aria-live="polite"></section>
+    <div class="chat-hint"><i></i> Your chats stay on this device. Ollama only.</div>
+    <form class="composer" id="chatForm"><textarea id="chatInput" rows="2" maxlength="5000" placeholder="Say something…" required></textarea><button class="send-button" type="submit" aria-label="Send">↑</button></form>
+  </main>
+
+  <main id="mainframe" class="mainframe-layout hidden">
+    <header class="mf-header">
+      <div class="mf-brand"><div class="brand-mark">PP<span>•</span></div><div><p class="eyebrow">PROPERTY OPERATIONS / LOCAL</p><h1>Mainframe <small>v1.0</small></h1></div></div>
+      <div class="status-chip"><span class="live-dot"></span><span id="mfStatus">CHECKING LOCAL BRAIN</span></div>
+    </header>
+    <aside class="mf-nav" id="mfNav">
+      <button class="active" data-tab="look"><span>01</span> APPEARANCE</button><button data-tab="personality"><span>02</span> PERSONALITY</button><button data-tab="behavior"><span>03</span> BEHAVIOR</button><button data-tab="brain"><span>04</span> BRAIN</button><button data-tab="memory"><span>05</span> MEMORY</button><button data-tab="voice"><span>06</span> VOICE</button>
+      <div class="nav-footer">NO CLOUD FALLBACK<br>LOCAL DATA STORE</div>
+    </aside>
+    <section class="mf-content" id="mfContent">
+      <div class="tab-page active" data-page="look">
+        <p class="eyebrow">STYLE PROFILE / 4 AVAILABLE</p><h2>Choose his look.</h2><p class="lead">Pick a version to keep on your desktop. Your selection stays on this device.</p>
+        <div class="character-grid" id="characterGrid"></div>
+        <div class="setting-row"><div><strong>Companion scale</strong><small>Resize the desktop character</small></div><div class="range-wrap"><input id="sizeControl" type="range" min="0.7" max="1.5" step="0.1"><output id="sizeOutput"></output></div></div>
+      </div>
+      <div class="tab-page" data-page="personality"><p class="eyebrow">TUNING / VOICE & TEMPERAMENT</p><h2>Set his attitude.</h2><p class="lead">The familiar catchphrase stays at the start of every reply. Tune everything after it.</p>
+        <label class="setting-row"><span><strong>Default mood</strong><small>Sets his general tone</small></span><select id="moodControl"><option>Easygoing</option><option>Confident</option><option>Dry</option><option>Warm</option><option>Playful</option></select></label>
+        <div class="setting-row range-row"><label for="humorControl"><strong>Humor</strong><small>Serious ← → Witty</small></label><input id="humorControl" type="range" min="0" max="100"><output id="humorValue"></output></div>
+        <div class="setting-row range-row"><label for="friendControl"><strong>Friendliness</strong><small>Reserved ← → Friendly</small></label><input id="friendControl" type="range" min="0" max="100"><output id="friendValue"></output></div>
+        <div class="setting-row range-row"><label for="sassControl"><strong>Sass</strong><small>Polite ← → Cheeky</small></label><input id="sassControl" type="range" min="0" max="100"><output id="sassValue"></output></div>
+      </div>
+      <div class="tab-page" data-page="behavior"><p class="eyebrow">PRESENCE / KEEP IT RESPECTFUL</p><h2>Choose how often.</h2><p class="lead">He never claims to see your screen. Check-ins are short, optional, and easy to turn off.</p>
+        <label class="setting-row"><span><strong>Quiet mode</strong><small>Disable all spontaneous check-ins</small></span><input id="quietControl" class="toggle" type="checkbox"></label>
+        <div class="setting-row range-row"><label for="proactiveControl"><strong>Proactivity</strong><small>Rare ← → Occasional</small></label><input id="proactiveControl" type="range" min="0" max="5"><output id="proactiveValue"></output></div>
+        <label class="setting-row"><span><strong>Check-in interval</strong><small>Minimum time between remarks</small></span><select id="intervalControl"><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">1 hour</option><option value="120">2 hours</option><option value="240">4 hours</option></select></label>
+        <div class="info-box">This version has no screen-watching or game controls. Remarks use a small set of local, timed prompts and respect quiet mode.</div>
+      </div>
+      <div class="tab-page" data-page="brain"><p class="eyebrow">INFERENCE / DEVICE ONLY</p><h2>Local brain.</h2><p class="lead">He connects directly to Ollama on this computer. Nothing switches to a cloud AI if Ollama is offline.</p>
+        <div class="connection-card"><div><span class="eyebrow">OLLAMA STATUS</span><strong id="ollamaStatus">Checking localhost…</strong><small id="ollamaDetail">127.0.0.1:11434</small></div><button class="button outline" id="refreshOllama">RECHECK</button></div>
+        <label class="field-label" for="modelControl">MODEL TAG</label><div class="inline-control"><select id="modelControl"></select><input id="modelCustom" placeholder="or enter a model tag"><button class="button outline" id="saveModel">SAVE</button></div>
+        <p class="setup-note">Preferred model: <code>gemma4:e4b</code>. If it isn't available, install it from Terminal with <code>ollama pull gemma4:e4b</code>, or choose another installed model above.</p><div class="model-progress" id="modelProgress"></div><button class="button pink" id="pullModel">PULL SELECTED MODEL</button>
+      </div>
+      <div class="tab-page" data-page="memory"><p class="eyebrow">PERSONAL NOTES / STORED HERE</p><h2>What should he know?</h2><p class="lead">Add facts you choose. They are included in later conversations with the local model.</p>
+        <form class="memory-form" id="memoryForm"><textarea id="memoryInput" rows="3" maxlength="800" placeholder="Example: I like early morning walks."></textarea><button class="button pink" type="submit">SAVE MEMORY</button></form><div class="memory-list" id="memoryList"></div>
+      </div>
+      <div class="tab-page" data-page="voice"><p class="eyebrow">AUDIO / OPTIONAL</p><h2>Voice controls.</h2><p class="lead">Startup audio and spoken replies can be controlled here. Speech input is not bundled in this first release.</p>
+        <label class="setting-row"><span><strong>Play supplied MP3 on launch</strong><small>Uses your local private-property.mp3 file</small></span><input id="soundControl" class="toggle" type="checkbox"></label>
+        <label class="setting-row"><span><strong>Spoken replies</strong><small>Uses your operating system's speech synthesis</small></span><input id="speechControl" class="toggle" type="checkbox"></label>
+        <div class="setting-row"><span><strong>Speech input</strong><small>Local speech recognition is not bundled in this release</small></span><button class="button outline" type="button" disabled>MIC OFF</button></div>
+        <button class="button outline" id="previewSound">PLAY STARTUP SOUND</button>
+        <div class="info-box">Microphone access is not requested. No voice recording or remote speech service is used.</div>
+      </div>
+      <footer class="mf-footer"><span>PRIVATE PROPERTY // CONFIGURATION SAVED LOCALLY</span><button id="hideMainframe">CLOSE MAINFRAME</button></footer>
+    </section>
+  </main>
+  <script src="renderer.js"></script>
+</body>
+</html>
