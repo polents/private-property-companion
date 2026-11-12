@@ -1,0 +1,28 @@
+{
+  "name": "private-property-companion",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A local-first desktop companion inspired by the This Is Private Property meme.",
+  "author": "polents",
+  "license": "MIT",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:mac": "electron-builder --mac dmg zip --universal",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.polents.privatepropertycompanion",
+    "productName": "Private Property Companion",
+    "directories": { "output": "release" },
+    "files": ["src/**/*", "assets/**/*", "package.json"],
+    "mac": { "category": "public.app-category.utilities", "target": ["dmg", "zip"] },
+    "win": { "target": ["nsis"] },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true }
+  }
+}
